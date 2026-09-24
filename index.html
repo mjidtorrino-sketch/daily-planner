@@ -3,127 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Daily Planner</title>
+    <title>Daily Planner</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #f7f5f0;
-            color: #333333;
+            color: #4a403a;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
         }
-        .planner-container {
+        .page {
             background: #ffffff;
             width: 100%;
-            max-width: 800px;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 2px solid #e6dfd5;
+        }
+        /* Header */
+        .header-decor {
+            text-align: center;
+            color: #8c7b6e;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
         }
         h1 {
             text-align: center;
-            color: #4a403a;
-            margin-bottom: 5px;
-            font-weight: 600;
+            color: #2c2522;
+            font-size: 28px;
+            letter-spacing: 3px;
+            margin: 5px 0 10px 0;
+            font-weight: 700;
         }
-        .date-section {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #8c827a;
-            font-size: 14px;
+        /* Date Bar */
+        .date-bar {
+            background-color: #a39283;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
         }
-        .section-title {
-            font-size: 18px;
-            color: #5c5048;
-            border-bottom: 2px solid #eae5df;
-            padding-bottom: 5px;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-weight: 600;
+        .days-list span {
+            margin-left: 6px;
+            opacity: 0.85;
         }
-        .box-grid {
+        .days-list span.active {
+            opacity: 1;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Layout Grid */
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        .card {
-            background: #faf8f5;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #eee8e2;
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-        ul {
-            margin: 0;
-            padding-left: 20px;
+        
+        /* Card Boxes */
+        .box {
+            background: #fbf9f6;
+            border: 1px.solid #ebdcd0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            position: relative;
         }
-        li {
+        .box-title {
+            background-color: #a39283;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Items inside boxes */
+        .line-item {
+            display: flex;
+            align-items: center;
             margin-bottom: 8px;
-            color: #555;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
             font-size: 12px;
-            color: #aaa;
+        }
+        .line-item span.num {
+            width: 18px;
+            height: 18px;
+            background: #a39283;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            margin-right: 8px;
+        }
+        .line-item .blank-line {
+            flex-grow: 1;
+            border-bottom: 1px dotted #ccbdae;
+            margin-left: 5px;
+            height: 14px;
+        }
+
+        /* Schedule specific */
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            margin-bottom: 6px;
+            color: #6b5e52;
+        }
+        .schedule-row .time {
+            font-weight: 600;
+            width: 50px;
+        }
+        .schedule-row .line {
+            flex-grow: 1;
+            border-bottom: 1px dotted #ccbdae;
+            height: 12px;
+            margin-left: 8px;
+        }
+
+        /* Small boxes row */
+        .small-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 10px;
+        }
+
+        /* Checkboxes */
+        .checkbox {
+            width: 10px;
+            height: 10px;
+            border: 1px solid #a39283;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* Notes box full width */
+        .full-box {
+            grid-column: span 2;
+        }
+        .note-lines {
+            margin-top: 5px;
+        }
+        .note-line {
+            border-bottom: 1px dotted #ccbdae;
+            height: 18px;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
 
-<div class="planner-container">
-    <h1>✨ Daily Planner ✨</h1>
-    <div class="date-section">Date: ____ / ____ / 2026</div>
+<div class="page">
+    <div class="header-decor">────── ◉ ──────</div>
+    <h1>DAILY PLANNER</h1>
+    <div class="header-decor">────── ◉ ──────</div>
 
-    <div class="section-title">🎯 Top Priorities</div>
-    <div class="card">
-        <ul>
-            <li>Task 1: ________________________</li>
-            <li>Task 2: ________________________</li>
-            <li>Task 3: ________________________</li>
-        </ul>
-    </div>
-
-    <div class="section-title">⏰ Schedule</div>
-    <div class="card">
-        <ul>
-            <li>08:00 AM - ___________________</li>
-            <li>10:00 AM - ___________________</li>
-            <li>12:00 PM - ___________________</li>
-            <li>02:00 PM - ___________________</li>
-            <li>04:00 PM - ___________________</li>
-            <li>06:00 PM - ___________________</li>
-        </ul>
-    </div>
-
-    <div class="box-grid">
-        <div>
-            <div class="section-title">💧 Self-Care</div>
-            <div class="card">
-                <ul>
-                    <li>Water Intake: 🚰 🚰 🚰 🚰</li>
-                    <li>Skincare / Workout</li>
-                    <li>Read / Vitamins</li>
-                </ul>
-            </div>
-        </div>
-        <div>
-            <div class="section-title">💡 Mood & Focus</div>
-            <div class="card">
-                <p>Today's Vibe: 😊 😌 🚀 🎯</p>
-                <p>Gratitude: _________________</p>
-            </div>
+    <!-- Date & Days Bar -->
+    <div class="date-bar">
+        <div>Date: _____ / _____ / _____</div>
+        <div class="days-list">
+            Day: 
+            <span>S</span> <span>M</span> <span>T</span> <span>W</span> <span>T</span> <span>F</span> <span>S</span>
         </div>
     </div>
 
-    <div class="section-title">📝 Notes & Ideas</div>
-    <div class="card" style="height: 60px;">
-        <p style="color: #999; font-style: italic; margin: 0;">Jot down your thoughts here...</p>
-    </div>
+    <div class="grid-container">
+        
+        <!-- Left Column -->
+        <div class="col">
+            <!-- Top Priorities -->
+            <div class="box">
+                <div class="box-title">Top Priorities</div>
+                <div class="line-item"><span class="num">1</span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="num">2</span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="num">3</span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="num">4</span><div class="blank-line"></div></div>
+            </div>
 
-    <div class="footer">
-        Aesthetic Daily Planner • Designed for Productivity
+            <!-- Goal For Today -->
+            <div class="box">
+                <div class="box-title">Goal For Today</div>
+                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
+                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
+            </div>
+
+            <!-- Reminders & Urgent row -->
+            <div class="small-row">
+                <div class="box" style="margin:0;">
+                    <div class="box-title" style="background-color: #8c7b6e;">Reminders</div>
+                    <div class="note-line" style="margin-top:5px;"></div>
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                </div>
+                <div class="box" style="margin:0;">
+                    <div class="box-title" style="background-color: #b5836d;">Urgent</div>
+                    <div class="note-line" style="margin-top:5px;"></div>
+                    <div class="note-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col">
+            <!-- Schedule -->
+            <div class="box">
+                <div class="box-title">Schedule</div>
+                <div class="schedule-row"><span class="time">05.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">06.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">07.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">08.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">09.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">10.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">11.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">12.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">13.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">14.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">15.00</span><div class="line"></div></div>
+                <div class="schedule-row"><span class="time">16.00</span><div class="line"></div></div>
+            </div>
+
+            <!-- Self-Care -->
+            <div class="box">
+                <div class="box-title">Self-Care</div>
+                <div class="line-item"><span class="checkbox"></span> Drink Water <div class="blank-line" style="max-width: 60px;"></div></div>
+                <div class="line-item"><span class="checkbox"></span> Take a Break <div class="blank-line" style="max-width: 60px;"></div></div>
+                <div class="line-item"><span class="checkbox"></span> Get Enough Sleep <div class="blank-line" style="max-width: 60px;"></div></div>
+            </div>
+        </div>
+
+        <!-- Notes Full Width -->
+        <div class="box full-box">
+            <div class="box-title">Notes</div>
+            <div class="note-lines">
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+            </div>
+        </div>
+
     </div>
 </div>
 
