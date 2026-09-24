@@ -3,267 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Planner</title>
+    <title>Daily Planner - Forest Theme</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f7f5f0;
-            color: #4a403a;
+            background-color: #f4f1ea;
+            color: #2b3027;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
         }
         .page {
-            background: #ffffff;
+            background: #fbf9f5;
             width: 100%;
-            max-width: 650px;
+            max-width: 700px;
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 2px solid #e6dfd5;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2ddd3;
         }
-        /* Header */
-        .header-decor {
-            text-align: center;
-            color: #8c7b6e;
-            font-size: 14px;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-        h1 {
-            text-align: center;
-            color: #2c2522;
-            font-size: 28px;
-            letter-spacing: 3px;
-            margin: 5px 0 10px 0;
-            font-weight: 700;
-        }
-        /* Date Bar */
-        .date-bar {
-            background-color: #a39283;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
+        
+        /* Top Header */
+        .top-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            font-weight: 500;
+            align-items: flex-start;
             margin-bottom: 20px;
+            border-bottom: 2px solid #2b3027;
+            padding-bottom: 15px;
         }
-        .days-list span {
-            margin-left: 6px;
-            opacity: 0.85;
+        .brand-title h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #2b3027;
+            line-height: 1;
         }
-        .days-list span.active {
-            opacity: 1;
+        .brand-title .subtitle {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #555;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .mountain-logo {
+            font-size: 28px;
+            color: #2b3027;
+        }
+        .quote-box {
+            background-color: #2b3027;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 11px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            max-width: 200px;
+            line-height: 1.4;
+        }
+        .date-line {
+            font-size: 12px;
             font-weight: bold;
-            text-decoration: underline;
+            margin-top: 10px;
+        }
+        .date-line span {
+            border-bottom: 1px solid #2b3027;
+            padding: 0 15px;
         }
 
         /* Layout Grid */
-        .grid-container {
+        .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
             gap: 15px;
         }
-        .col {
+        .column {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
-        /* Card Boxes */
-        .box {
-            background: #fbf9f6;
-            border: 1px.solid #ebdcd0;
-            border-radius: 10px;
-            padding: 12px 15px;
-            position: relative;
+
+        /* Card Box */
+        .card {
+            background: #f4f1ea;
+            border: 1.5px solid #2b3027;
+            border-radius: 6px;
+            overflow: hidden;
         }
-        .box-title {
-            background-color: #a39283;
-            color: white;
+        .card-header {
+            background-color: #2b3027;
+            color: #ffffff;
+            padding: 6px 12px;
             font-size: 11px;
             font-weight: bold;
-            text-transform: uppercase;
-            padding: 3px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Items inside boxes */
-        .line-item {
+            letter-spacing: 1px;
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
-            font-size: 12px;
+            gap: 6px;
+            text-transform: uppercase;
         }
-        .line-item span.num {
-            width: 18px;
-            height: 18px;
-            background: #a39283;
-            color: white;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            margin-right: 8px;
-        }
-        .line-item .blank-line {
-            flex-grow: 1;
-            border-bottom: 1px dotted #ccbdae;
-            margin-left: 5px;
-            height: 14px;
+        .card-body {
+            padding: 10px 12px;
         }
 
-        /* Schedule specific */
+        /* Schedule rows */
         .schedule-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
-            margin-bottom: 6px;
-            color: #6b5e52;
+            margin-bottom: 7px;
+            color: #444;
         }
         .schedule-row .time {
             font-weight: 600;
-            width: 50px;
+            width: 45px;
         }
         .schedule-row .line {
             flex-grow: 1;
-            border-bottom: 1px dotted #ccbdae;
+            border-bottom: 1px dotted #b5b0a4;
             height: 12px;
             margin-left: 8px;
         }
 
-        /* Small boxes row */
-        .small-row {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 10px;
+        /* Items with checkbox or number */
+        .item-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
         }
-
-        /* Checkboxes */
-        .checkbox {
+        .item-row .num-badge {
+            width: 16px;
+            height: 16px;
+            background: #2b3027;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            margin-right: 8px;
+        }
+        .item-row .checkbox {
             width: 10px;
             height: 10px;
-            border: 1px solid #a39283;
-            border-radius: 50%;
+            border: 1px solid #2b3027;
+            border-radius: 2px;
             display: inline-block;
-            margin-right: 6px;
+            margin-right: 8px;
+        }
+        .item-row .blank-line {
+            flex-grow: 1;
+            border-bottom: 1px dotted #b5b0a4;
+            height: 14px;
+            margin-left: 5px;
         }
 
-        /* Notes box full width */
-        .full-box {
-            grid-column: span 2;
+        /* Meals & Water */
+        .meal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            margin-bottom: 6px;
         }
-        .note-lines {
+        .meal-item span:first-child {
+            font-weight: 600;
+            width: 65px;
+        }
+        .meal-item .line {
+            flex-grow: 1;
+            border-bottom: 1px dotted #b5b0a4;
+            height: 12px;
+        }
+
+        .water-glasses {
+            display: flex;
+            justify-content: space-between;
             margin-top: 5px;
         }
-        .note-line {
-            border-bottom: 1px dotted #ccbdae;
+        .glass {
+            width: 14px;
             height: 18px;
-            margin-bottom: 8px;
+            border: 1px solid #2b3027;
+            border-radius: 0 0 3px 3px;
+            position: relative;
+        }
+
+        /* Footer quote */
+        .footer-note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 9px;
+            color: #666;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
 <div class="page">
-    <div class="header-decor">────── ◉ ──────</div>
-    <h1>DAILY PLANNER</h1>
-    <div class="header-decor">────── ◉ ──────</div>
-
-    <!-- Date & Days Bar -->
-    <div class="date-bar">
-        <div>Date: _____ / _____ / _____</div>
-        <div class="days-list">
-            Day: 
-            <span>S</span> <span>M</span> <span>T</span> <span>W</span> <span>T</span> <span>F</span> <span>S</span>
+    <!-- Header -->
+    <div class="top-header">
+        <div>
+            <div class="brand-title">
+                <h1>DAILY<br>PLANNER</h1>
+                <div class="subtitle">— PLAN / FOCUS / GET IT DONE —</div>
+            </div>
+            <div class="date-line">DATE: <span></span> / <span></span> / <span></span></div>
+        </div>
+        <div>
+            <div style="font-size: 24px; text-align: right; margin-bottom: 5px;">⛰️</div>
+            <div class="quote-box">
+                SMALL STEPS EVERY DAY LEAD TO BIG RESULTS.
+            </div>
         </div>
     </div>
 
-    <div class="grid-container">
-        
-        <!-- Left Column -->
-        <div class="col">
-            <!-- Top Priorities -->
-            <div class="box">
-                <div class="box-title">Top Priorities</div>
-                <div class="line-item"><span class="num">1</span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="num">2</span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="num">3</span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="num">4</span><div class="blank-line"></div></div>
-            </div>
-
-            <!-- Goal For Today -->
-            <div class="box">
-                <div class="box-title">Goal For Today</div>
-                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
-                <div class="line-item"><span class="checkbox"></span><div class="blank-line"></div></div>
-            </div>
-
-            <!-- Reminders & Urgent row -->
-            <div class="small-row">
-                <div class="box" style="margin:0;">
-                    <div class="box-title" style="background-color: #8c7b6e;">Reminders</div>
-                    <div class="note-line" style="margin-top:5px;"></div>
-                    <div class="note-line"></div>
-                    <div class="note-line"></div>
-                </div>
-                <div class="box" style="margin:0;">
-                    <div class="box-title" style="background-color: #b5836d;">Urgent</div>
-                    <div class="note-line" style="margin-top:5px;"></div>
-                    <div class="note-line"></div>
+    <!-- Main Content -->
+    <div class="main-grid">
+        <!-- Left Column (Schedule) -->
+        <div class="column">
+            <div class="card">
+                <div class="card-header">🕒 Today's Schedule</div>
+                <div class="card-body">
+                    <div class="schedule-row"><span class="time">6:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">7:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">8:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">9:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">10:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">11:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">12:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">1:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">2:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">3:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">4:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">5:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">6:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">7:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">8:00</span><div class="line"></div></div>
+                    <div class="schedule-row"><span class="time">9:00</span><div class="line"></div></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Column -->
-        <div class="col">
-            <!-- Schedule -->
-            <div class="box">
-                <div class="box-title">Schedule</div>
-                <div class="schedule-row"><span class="time">05.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">06.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">07.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">08.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">09.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">10.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">11.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">12.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">13.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">14.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">15.00</span><div class="line"></div></div>
-                <div class="schedule-row"><span class="time">16.00</span><div class="line"></div></div>
+            <!-- Meals -->
+            <div class="card">
+                <div class="card-header">🍽️ Meals</div>
+                <div class="card-body">
+                    <div class="meal-item"><span>BREAKFAST</span><div class="line"></div></div>
+                    <div class="meal-item"><span>LUNCH</span><div class="line"></div></div>
+                    <div class="meal-item"><span>DINNER</span><div class="line"></div></div>
+                    <div class="meal-item"><span>SNACKS</span><div class="line"></div></div>
+                </div>
             </div>
 
-            <!-- Self-Care -->
-            <div class="box">
-                <div class="box-title">Self-Care</div>
-                <div class="line-item"><span class="checkbox"></span> Drink Water <div class="blank-line" style="max-width: 60px;"></div></div>
-                <div class="line-item"><span class="checkbox"></span> Take a Break <div class="blank-line" style="max-width: 60px;"></div></div>
-                <div class="line-item"><span class="checkbox"></span> Get Enough Sleep <div class="blank-line" style="max-width: 60px;"></div></div>
+            <!-- Water tracker -->
+            <div class="card">
+                <div class="card-header">💧 Water</div>
+                <div class="card-body">
+                    <div class="water-glasses">
+                        <div class="glass"></div><div class="glass"></div><div class="glass"></div><div class="glass"></div>
+                        <div class="glass"></div><div class="glass"></div><div class="glass"></div><div class="glass"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Notes Full Width -->
-        <div class="box full-box">
-            <div class="box-title">Notes</div>
-            <div class="note-lines">
-                <div class="note-line"></div>
-                <div class="note-line"></div>
-                <div class="note-line"></div>
+        <!-- Right Column (Priorities, To Do, Health, Notes) -->
+        <div class="column">
+            <!-- Top 3 Priorities -->
+            <div class="card">
+                <div class="card-header">🎯 Top 3 Priorities</div>
+                <div class="card-body">
+                    <div class="item-row"><span class="num-badge">1</span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="num-badge">2</span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="num-badge">3</span><div class="blank-line"></div></div>
+                </div>
+            </div>
+
+            <!-- To Do List -->
+            <div class="card">
+                <div class="card-header">☑️ To Do List</div>
+                <div class="card-body">
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span><div class="blank-line"></div></div>
+                </div>
+            </div>
+
+            <!-- Health & Fitness -->
+            <div class="card">
+                <div class="card-header">🏋️ Health & Fitness</div>
+                <div class="card-body" style="font-size: 11px;">
+                    <div class="item-row"><span class="checkbox"></span> Workout <div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span> Walk <div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span> Stretch <div class="blank-line"></div></div>
+                    <div class="item-row"><span class="checkbox"></span> Other <div class="blank-line"></div></div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card">
+                <div class="card-header">💡 Notes</div>
+                <div class="card-body">
+                    <div style="border-bottom: 1px dotted #b5b0a4; height: 16px; margin-bottom: 8px;"></div>
+                    <div style="border-bottom: 1px dotted #b5b0a4; height: 16px; margin-bottom: 8px;"></div>
+                    <div style="border-bottom: 1px dotted #b5b0a4; height: 16px;"></div>
+                </div>
             </div>
         </div>
+    </div>
 
+    <!-- Footer Quote -->
+    <div class="footer-note">
+        <span>⛰️ BETTER HABITS, A STRONGER YOU.</span>
+        <span>🌲🌲🌲</span>
     </div>
 </div>
 
